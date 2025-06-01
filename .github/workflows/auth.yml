@@ -1,0 +1,53 @@
+name: CI/CD for Auth Service
+
+on:
+  push:
+    branches: [main]
+
+env:
+  IMAGE_NAME: auth-service
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: ./auth_service
+        file: ./auth_service/Dockerfile
+        push: true
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/auth-service:latest
+        build-args: |
+          DB_NAME=auth_db
+          DB_USER=auth
+          DB_PASSWORD=auth
+          DB_HOST=auth-db
+
+    - name: Set up gcloud
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+    - name: Configure GKE credentials
+      run: |
+        gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER }} --zone ${{ secrets.GKE_ZONE }}
+
+    - name: Deploy to GKE
+      run: |
+        kubectl apply -f ./k8s/auth/deployment.yaml
+        kubectl apply -f ./k8s/auth/service.yaml

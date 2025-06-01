@@ -1,3 +1,4 @@
+#auth_service > auth_service > asgi.py
 """
 ASGI config for auth_service project.
 

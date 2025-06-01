@@ -1,3 +1,4 @@
+#auth_service > auth_service > settings.py
 import os
 from pathlib import Path
 from datetime import timedelta
@@ -6,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'auth-secret-key'  # 실제 배포시 .env 사용 추천
 DEBUG = True
-ALLOWED_HOSTS = []  # 실제 배포시 제한
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'authentication',

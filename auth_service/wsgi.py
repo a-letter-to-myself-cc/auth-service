@@ -1,3 +1,5 @@
+#auth_service > auth_service > wsgi.py
+
 """
 WSGI config for auth_service project.
 

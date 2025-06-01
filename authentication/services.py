@@ -1,6 +1,7 @@
+#auth_service > authentication > services.py
 import requests
 
-USER_SERVICE_URL = "http://localhost:8002/user" # 개발환경 기준
+USER_SERVICE_URL = "http://user-service:8002/user" #컨테이너 이름으로 변경
 
 def create_user_in_user_service(user_id, username, email):
     payload = {

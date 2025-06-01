@@ -1,3 +1,4 @@
+#auth_service > authentication > jwt_utils.py
 import jwt
 from datetime import datetime, timedelta
 from django.conf import settings

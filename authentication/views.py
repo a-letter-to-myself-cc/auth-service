@@ -1,3 +1,4 @@
+#auth_service > authentication > views.py
 import requests
 # Create your views here.
 
@@ -94,7 +95,7 @@ class MypageApiView(APIView):
 
         headers = {'Authorization': f'Bearer {access_token}'}
         try:
-            response = requests.get("http://localhost:8002/user/internal/get/", headers=headers) # 개발환경
+            response = requests.get("http://user-service:8002/user/internal/get/", headers=headers) # 컨테이너 이름으로 변경
             if response.status_code == 200:
                 return Response(response.json(), status=200)
             else:

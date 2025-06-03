@@ -27,5 +27,12 @@ COPY . /app
 ENV PORT=8001
 EXPOSE 8001
 
+# entrypoint 추가
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# 실행 커맨드 교체
+CMD ["/entrypoint.sh"]
+
 # 서버 실행
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8001"]
+# CMD ["python", "manage.py", "runserver", "0.0.0.0:8001"]

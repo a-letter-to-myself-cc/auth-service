@@ -29,6 +29,7 @@ EXPOSE 8001
 
 # entrypoint 추가
 COPY entrypoint.sh /entrypoint.sh
+RUN apt-get update && apt-get install -y netcat-openbsd
 RUN chmod +x /entrypoint.sh
 
 # 실행 커맨드 교체

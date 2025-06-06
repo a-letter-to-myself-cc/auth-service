@@ -5,6 +5,7 @@ import requests
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.views.decorators.http import require_GET
 
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import authenticate
@@ -137,6 +138,6 @@ class TokenVerifyInternalView(APIView):
         except InvalidTokenError:
             return Response({'detail': 'Invalid token'}, status=401)
 
-@api_view(['GET'])
+@require_GET
 def health_check(request):
     return JsonResponse({"status": "ok"})

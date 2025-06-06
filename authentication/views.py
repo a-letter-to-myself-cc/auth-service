@@ -21,6 +21,8 @@ from .models import User
 #모놀리식으로 실행시킬 때 경로
 import requests
 
+from rest_framework.decorators import api_view
+
 # 임시 메모리 저장소 (프로덕션에서는 Redis 등 사용)
 REFRESH_TOKEN_STORE = {}
 
@@ -134,3 +136,7 @@ class TokenVerifyInternalView(APIView):
             return Response({'detail': 'Token expired'}, status=401)
         except InvalidTokenError:
             return Response({'detail': 'Invalid token'}, status=401)
+
+@api_view(['GET'])
+def health_check(request):
+    return JsonResponse({"status": "ok"})

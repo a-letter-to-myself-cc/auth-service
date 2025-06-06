@@ -15,4 +15,6 @@ urlpatterns = [
     path("internal/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("internal/verify/", TokenVerifyInternalView.as_view(), name="token_verify"), # user, ... 폴더에서 토큰 유효성 검사 요청
 
+    #헬스체크
+    path('health/', views.health_check),
 ]

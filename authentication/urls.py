@@ -1,7 +1,6 @@
 #auth_service > authentication > urls.py
 from django.urls import path
 from .views import *
-from . import views
 
 
 app_name = "authentication"
@@ -16,7 +15,4 @@ urlpatterns = [
     # 내부 서비스 API    
     path("internal/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("internal/verify/", TokenVerifyInternalView.as_view(), name="token_verify"), # user, ... 폴더에서 토큰 유효성 검사 요청
-
-    #헬스체크
-    path('health/', views.health_check),
 ]

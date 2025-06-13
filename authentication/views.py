@@ -74,15 +74,15 @@ class LoginApiView(APIView):
                 "access": access,
                 "refresh": refresh,
             })
-            response.set_cookie("access", access, httponly=True)
-            response.set_cookie("refresh", refresh, httponly=True)
-            response.set_cookie(
-                key="access_token",
-                value=access,
-                httponly=True,
-                secure=False,
-                samesite='Lax'
-            )
+            # response.set_cookie("access", access, httponly=True)
+            # response.set_cookie("refresh", refresh, httponly=True)
+            # response.set_cookie(
+            #     key="access_token",
+            #     value=access,
+            #     httponly=True,
+            #     secure=False,
+            #     samesite='Lax'
+            # )
 
             return response
         return Response({"error": "Invalid credentials"}, status=401)
